@@ -105,8 +105,9 @@ button::after {
 
 #home > h1 {
     display: flex;
-    font-size: min(20vw, 40vh);
+    font-size: min(15vw, 35vh);
     margin-block: 10px;
+    align-items: flex-end;
 }
     
 #home > h1 span {
@@ -121,7 +122,6 @@ button::after {
 #home > h1 span:nth-child(6) { --delay: -2.5s; }
 #home > h1 span:nth-child(7) { --delay: -3s; }
 
-
 @keyframes casualFont {
     0% {
         font-variation-settings: "CASL" 0, "wght" 900, "slnt" -10;
@@ -133,6 +133,30 @@ button::after {
     100% {
         font-variation-settings: "CASL" 0, "wght" 700, "slnt" -14;
     }
+}
+
+#home > h1 img {
+    margin-left: 15px;
+    height: min(21vw, 21vh);
+    border-radius: 15px;
+    transition: 100ms;
+    animation: boom 2s ease-in-out infinite;
+}
+
+@keyframes boom {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#home > h1 img:focus, #home > h1 img:hover {
+    background: rgb(255, 255, 255, 0.7);
 }
 
 #home > p {
@@ -214,8 +238,7 @@ button::after {
 }
 
 .projectLinks a img {
-    width: auto;
-    max-width: 60%;
+    width: fit-content;
     height: calc(100% - 20px);
     max-height: 100%;
     padding: 10px;
