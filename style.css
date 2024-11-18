@@ -49,6 +49,8 @@ body {
     color: var(--font);
     /* height: 100vh; */
     margin: 0;
+    width: min(90vw, 1600px);
+    margin: auto;
 }
 
 @keyframes gradient {
