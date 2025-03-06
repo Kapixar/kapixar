@@ -7,13 +7,15 @@ const elts = {
 const texts = [
 	"developer",
     "board game enjoyer",
+    "technician",
     "designer",
     "creator",
     "fanatic ocaml fan",
+    "CS student",
     "programmer",
     "problem solver",
     "web developer",
-    "CS student",
+    "software engineer",
 ];
 
 // Controls the speed of morphing.

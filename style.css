@@ -9,7 +9,7 @@
 
 /* scrollbar */
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -20,6 +20,30 @@
     background: var(--secondary);
     border-radius: 5px;
 }
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 ::selection {
     background: var(--accent);
@@ -188,12 +212,12 @@ body {
 
 .aboutContainer {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 20vw;
+    flex-direction: column;
+    gap: 5vh;
     perspective: 50px;
     width: 100%;
+    margin-block: 90vh;
+    padding: 2rem;
     transform: translateZ(-50px) scale(2);
 
     @media (max-width: 40rem) {
@@ -201,11 +225,20 @@ body {
     }
 }
 
+.aboutEntry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+}
+
 .aboutText {
+    font-size: clamp(0.8rem, 2vw, 1rem);
     max-width: 50%;
-    font-size: 300%;
     transform: translateZ(-10px) rotateY(5deg);
-    font-weight: 900;
+    text-align: right;
 
     @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
         animation-name: moveText;
@@ -216,14 +249,15 @@ body {
     }
 }
 
-.pwrLogo {
-    flex-shrink: 0;
-    transform: translateZ(-50px) rotateY(-2deg) scale(2);
+.aboutEntry svg {
+    width: 100%;
+    flex-shrink: 10;
 }
 
 .pwrLogo path {
     stroke-width: 10;
     animation: dilateSvg;
+    opacity: 0;
     @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
         animation-name: dilateSvg;
         animation-duration: 1ms;
@@ -235,9 +269,11 @@ body {
 
 @keyframes dilateSvg {
     0% {
-        stroke-width: 50;
+        opacity: 0;
+        stroke-width: 10;
     }
     100% {
+        opacity: 1;
         stroke-width: 0;
     }
 }
@@ -360,7 +396,7 @@ button::after {
     display: inline-block;
     width: 50vw;
     position: relative;
-    filter: url(#gooeyThreshold) blur(0.6px);
+    filter: url(#gooeyThreshold) blur(0.3px);
 }
 
 #home #gooey2 {
@@ -468,15 +504,59 @@ button::after {
 } */
 
 .rotationContainer {
-    margin-block: 40vh;
-    display: block;
     position: relative;
-    width: 50px;
+    margin-block: 80vh;
+    width: 100vw;
+    height: 100vh;
 
-    padding: 0;
+    transform: translateZ(-50px) scale(3);
+    transform-style: preserve-3d;
+}
+
+.rotationContainer::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    translate: -50% -25%;
+    border-radius: 9999999px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 100px 100px, var(--accent), #000);
+}
+
+/* .rotationContainer::before {
+    content: "Tech Stack";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    font-size: 2rem;
+    color: var(--primary);
+    text-shadow: 1px 1px 1px var(--background);
+    transform: translateY(25px) rotate(-70deg);
+}
+
+.rotationContainer:has(.soft)::before {
+    content: "Software";
+    transform: translateY(25px) rotate(50deg);
+}
+
+.rotationContainer:has(.goal)::before {
+    content: "Learning";
+} */
+
+.rotator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -100% -100%;
+    display: block;
+    width: 10px;
+    transform-origin: 100% 100%;
+
     transform-style: preserve-3d;
     animation: rotate 10s infinite linear;
-    scale: 4;
 }
 
 @keyframes rotate {
@@ -488,37 +568,39 @@ button::after {
     }
 }
 
-.rotationContainer li {
-    transform: translateZ(-50px);
+.rotator li {
     position: absolute;
+    inset: 0;
     display: block;
     list-style: none;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
+    width: 200%;
     transform-style: preserve-3d;
 }
-.rotationContainer li > div {
-    float: left;
+
+.rotator li > i {
+    display: block;
     width: 20px;
     height: 20px;
-    line-height: 10px;
+    line-height: 20px;
     text-align: center;
-    background-color: #fff;
     cursor: pointer;
 
-    transform: rotateY(90deg) translateZ(-10px);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+
+    transform: rotateY(90deg) translateZ(-10px) rotateY(180deg);
     transition: 0.2s;
+
+    &:hover {
+        scale: 1.2;
+    }
 }
 
-.rotationContainer li:nth-child(1) { transform: rotateY(0deg); }
-.rotationContainer li:nth-child(2) { transform: rotateY(120deg); }
-.rotationContainer li:nth-child(3) { transform: rotateY(240deg); }
 
 .glassPanel {
     position: relative;
     border: 2px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+    background-color: color-mix(in srgb, var(--accent) 10%, rgba(255, 171, 171, 0));
 
     &::after {
         content: "";
@@ -544,10 +626,12 @@ button::after {
 #projects {
     display: grid;
     justify-items: center;
+    font-size: 50%;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 15px;
     margin: 15px;
     width: calc(100% - 30px);
+    max-width: 80rem;
     margin-bottom: 50px;
 }
 
@@ -560,8 +644,6 @@ button::after {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 100%;
-    max-width: 50%;
     font-size: 100%;
 }
 
@@ -580,19 +662,31 @@ button::after {
 
 .project h3 {
     font-size: 200%;
-    margin-block: 10px;
     color: var(--primary);
 }
 
 .project p {
     font-size: min(150%, 4vw);
-    margin-block: 10px;
     color: var(--secondary);
 }
 
 .project a {
     color: var(--primary);
-    /* text-decoration: none; */
+    text-decoration: none;
+}
+
+.project p a::after {
+    content: "";
+    display: inline-block;
+    vertical-align: sub;
+
+    width: 1rem;
+    height: .8rem;
+    margin-left: .1rem;
+
+    background-color: var(--primary);
+    mask: url("/assets/svg/external.svg") no-repeat;
+    mask-size: contain;
 }
 
 .projectLinks {
@@ -615,9 +709,11 @@ button::after {
     max-height: 100%;
     padding: 10px;
     border-radius: 15px;
-    background: rgb(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    /* background: rgb(255, 255, 255, 0.05); */
+    /* backdrop-filter: blur(15px); */
+    /* -webkit-backdrop-filter: blur(15px); */
+    box-shadow: inset 0 0 10px 5px color-mix(in srgb, var(--accent) 10%, transparent),
+        0 0 10px 5px color-mix(in srgb, var(--accent) 10%, transparent);
     transition: 250ms;
 }
 
