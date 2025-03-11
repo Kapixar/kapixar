@@ -1,10 +1,10 @@
 // smooth scroll
-const scrollContainer = document.querySelector('.paralaxContainer');
+// const scrollContainer = document.querySelector('.paralaxContainer');
 
-const lenis = new Lenis({
-    autoRaf: true,
-    wrapper: scrollContainer,
-});
+// const lenis = new Lenis({
+//     autoRaf: true,
+//     wrapper: scrollContainer,
+// });
 
 
 

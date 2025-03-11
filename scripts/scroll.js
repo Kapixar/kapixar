@@ -1,0 +1,161 @@
+
+class Scroller {
+  constructor(domtoolsInstanceArg) {
+    this.domtoolsInstance = domtoolsInstanceArg;
+
+    // Array to store scroll callback functions.
+    this.scrollCallbacks = [];
+
+    // Lenis instance (if activated) or null.
+    this.lenisInstance = null;
+
+    // Bound handlers to allow removal from event listeners.
+    this.handleNativeScroll = (event) => {
+      this.executeScrollCallbacks();
+    };
+
+    this.handleLenisScroll = (info) => {
+      this.executeScrollCallbacks();
+    };
+
+    // Attach the native scroll listener by default.
+    this.attachNativeScrollListener();
+  }
+
+  /**
+   * Detects whether native smooth scrolling is enabled.
+   */
+  async detectNativeSmoothScroll() {
+    const done = plugins.smartpromise.defer();
+    const sampleSize = 100;
+    const acceptableDeltaDifference = 3;
+    const minimumSmoothRatio = 0.75;
+
+    const eventDeltas = [];
+
+    function onWheel(event) {
+      eventDeltas.push(event.deltaY);
+
+      if (eventDeltas.length >= sampleSize) {
+        window.removeEventListener('wheel', onWheel);
+        analyzeEvents();
+      }
+    }
+
+    function analyzeEvents() {
+      const totalDiffs = eventDeltas.length - 1;
+      let smallDiffCount = 0;
+
+      for (let i = 0; i < totalDiffs; i++) {
+        const diff = Math.abs(eventDeltas[i + 1] - eventDeltas[i]);
+        if (diff <= acceptableDeltaDifference) {
+          smallDiffCount++;
+        }
+      }
+
+      const smoothRatio = smallDiffCount / totalDiffs;
+      if (smoothRatio >= minimumSmoothRatio) {
+        console.log('Smooth scrolling detected.');
+        done.resolve(true);
+      } else {
+        console.log('Smooth scrolling NOT detected.');
+        done.resolve(false);
+      }
+    }
+
+    window.addEventListener('wheel', onWheel);
+    return done.promise;
+  }
+
+  /**
+   * Enables Lenis scrolling.
+   * If optionsArg.disableOnNativeSmoothScroll is true and native smooth scrolling is detected,
+   * Lenis will be destroyed immediately.
+   */
+  async enableLenisScroll(optionsArg) {
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
+
+    if (optionsArg?.disableOnNativeSmoothScroll) {
+      if (await this.detectNativeSmoothScroll()) {
+        lenis.destroy();
+        return;
+      }
+    }
+
+    // Activate Lenis scrolling.
+    this.lenisInstance = lenis;
+    // Switch from native scroll listener to Lenis scroll listener.
+    this.detachNativeScrollListener();
+    this.attachLenisScrollListener();
+
+    // Monkey-patch the destroy method so that when Lenis is destroyed,
+    // the native scroll listener is reattached.
+    const originalDestroy = lenis.destroy.bind(lenis);
+    lenis.destroy = () => {
+      originalDestroy();
+      this.detachLenisScrollListener();
+      this.attachNativeScrollListener();
+      this.lenisInstance = null;
+    };
+  }
+
+  /**
+   * Registers a callback to be executed on scroll.
+   * @param callback A function to execute on each scroll event.
+   */
+  onScroll(callback) {
+    this.scrollCallbacks.push(callback);
+  }
+
+  /**
+   * Executes all registered scroll callbacks concurrently.
+   */
+  executeScrollCallbacks() {
+    // Execute all callbacks in parallel.
+    this.scrollCallbacks.forEach((callback) => {
+      try {
+        callback();
+      } catch (error) {
+        console.error('Error in scroll callback:', error);
+      }
+    });
+  }
+
+  /**
+   * Attaches the native scroll event listener.
+   */
+  attachNativeScrollListener() {
+    window.addEventListener('scroll', this.handleNativeScroll);
+  }
+
+  /**
+   * Detaches the native scroll event listener.
+   */
+  detachNativeScrollListener() {
+    window.removeEventListener('scroll', this.handleNativeScroll);
+  }
+
+  /**
+   * Attaches the Lenis scroll event listener.
+   */
+  attachLenisScrollListener() {
+    if (this.lenisInstance) {
+      // Assuming that Lenis exposes an `on` method to listen to scroll events.
+      this.lenisInstance.on('scroll', this.handleLenisScroll);
+    }
+  }
+
+  /**
+   * Detaches the Lenis scroll event listener.
+   */
+  detachLenisScrollListener() {
+    if (this.lenisInstance) {
+      // Assuming that Lenis exposes an `off` method to remove scroll event listeners.
+      this.lenisInstance.off('scroll', this.handleLenisScroll);
+    }
+  }
+}
+
+export { Scroller };
