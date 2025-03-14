@@ -1,3 +1,4 @@
+const scrollContainer = document.querySelector('.paralaxContainer');
 
 class Scroller {
   constructor(domtoolsInstanceArg) {
@@ -26,45 +27,45 @@ class Scroller {
    * Detects whether native smooth scrolling is enabled.
    */
   async detectNativeSmoothScroll() {
-    const done = plugins.smartpromise.defer();
-    const sampleSize = 100;
+    const sampleSize = 10;
     const acceptableDeltaDifference = 3;
     const minimumSmoothRatio = 0.75;
-
+  
     const eventDeltas = [];
-
-    function onWheel(event) {
-      eventDeltas.push(event.deltaY);
-
-      if (eventDeltas.length >= sampleSize) {
-        window.removeEventListener('wheel', onWheel);
-        analyzeEvents();
-      }
-    }
-
-    function analyzeEvents() {
-      const totalDiffs = eventDeltas.length - 1;
-      let smallDiffCount = 0;
-
-      for (let i = 0; i < totalDiffs; i++) {
-        const diff = Math.abs(eventDeltas[i + 1] - eventDeltas[i]);
-        if (diff <= acceptableDeltaDifference) {
-          smallDiffCount++;
+  
+    return new Promise((resolve) => {
+      function onWheel(event) {
+        eventDeltas.push(event.deltaY);
+  
+        if (eventDeltas.length >= sampleSize) {
+          window.removeEventListener('wheel', onWheel);
+          analyzeEvents();
         }
       }
-
-      const smoothRatio = smallDiffCount / totalDiffs;
-      if (smoothRatio >= minimumSmoothRatio) {
-        console.log('Smooth scrolling detected.');
-        done.resolve(true);
-      } else {
-        console.log('Smooth scrolling NOT detected.');
-        done.resolve(false);
+  
+      function analyzeEvents() {
+        const totalDiffs = eventDeltas.length - 1;
+        let smallDiffCount = 0;
+  
+        for (let i = 0; i < totalDiffs; i++) {
+          const diff = Math.abs(eventDeltas[i + 1] - eventDeltas[i]);
+          if (diff <= acceptableDeltaDifference) {
+            smallDiffCount++;
+          }
+        }
+  
+        const smoothRatio = smallDiffCount / totalDiffs;
+        if (smoothRatio >= minimumSmoothRatio) {
+            console.log('Smooth scrolling NOT detected.');
+            resolve(false);
+        } else {
+            console.log('Smooth scrolling detected.');
+            resolve(true);
+        }
       }
-    }
-
-    window.addEventListener('wheel', onWheel);
-    return done.promise;
+  
+      window.addEventListener('wheel', onWheel);
+    });
   }
 
   /**
@@ -75,7 +76,9 @@ class Scroller {
   async enableLenisScroll(optionsArg) {
     const lenis = new Lenis({
       autoRaf: true,
+      wrapper: scrollContainer,
     });
+    
 
     if (optionsArg?.disableOnNativeSmoothScroll) {
       if (await this.detectNativeSmoothScroll()) {
@@ -158,4 +161,22 @@ class Scroller {
   }
 }
 
-export { Scroller };
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Create an instance of the Scroller class.
+    const scroller = new Scroller(/* pass any required arguments here */);
+
+    // Register a scroll callback.
+    // scroller.onScroll(() => {
+    //   console.log('Scroll event detected!');
+    // });
+
+    // Optionally, enable Lenis scrolling.
+    scroller.enableLenisScroll({
+      disableOnNativeSmoothScroll: true
+    }).then(() => {
+      console.log('Lenis scrolling enabled.');
+    }).catch((error) => {
+      console.error('Error enabling Lenis scrolling:', error);
+    });
+  });

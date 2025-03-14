@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    <div class="cursorBlob"></div>
     <svg>
         <filter id="noiseFilter">
             <feTurbulence type="fractalNoise" baseFrequency="3" stitchTiles="stitch" />
@@ -75,14 +74,12 @@
             </div>
             <div class="aboutEntry aboutReversed">
                 <p class="aboutText">
-                    Trying to make a world a better place with <span class="bold">needed solutions</span>.<br>
-                    <span class="shadow">Once you've started getting into the limited run stuff, it's hard to go
-                        back to
-                        only drinking the lager.</span>
+                    Trying to make a world a better place by delivering <span class="bold">impactful solutions</span>.<br>
+                    <span class="shadow">I find LeetCode unappealing.</span>
                 </p>
-                <img src="assets/about/dices.svg" alt="board games logo" />
+                <img src="assets/about/base.svg" alt="board games logo" />
             </div>
-            <div class="aboutEntry aboutReversed">
+            <div class="aboutEntry">
                 <p class="aboutText">
                     Pumped about modern board games, especially <span class="bold">heavy titles</span>.<br>
                     <span class="shadow">Once you've started getting into the limited run stuff, it's hard to go
@@ -91,16 +88,16 @@
                 </p>
                 <img src="assets/about/dices.svg" alt="board games logo" />
             </div>
-            <div class="aboutEntry">
+            <div class="aboutEntry aboutReversed">
                 <p class="aboutText">
                     Occasionally solves sudokus from Cracking The Cryptic.<br>
                     <span class="shadow">Sometimes plays logic puzzle video games.</span>
                 </p>
                 <img src="assets/about/sudoku.svg" alt="board games logo" />
             </div>
-            <div class="aboutEntry aboutReversed">
+            <div class="aboutEntry">
                 <p class="aboutText">
-                    I have a <span class="bold">Jack Russell Terrier</span> at home.<br>
+                    Proud owner of lively <span class="bold">Jack Russell Terrier</span> at home.<br>
                 </p>
                 <img src="assets/about/jack.svg" alt="arduino logo" />
             </div>
@@ -160,6 +157,10 @@
         <h1 class="paralaxHeader rotateBack">Projects</h1>
         <div id="projects">
             <div class="glassPanel project polwrater">
+                <div class="projectIcons">
+                    <img src="assets/projects/wms.svg" alt="wms" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
                 <img src="assets/projects/polwrater.webp" alt />
                 <section>
                     <h3>Polwrater</h3>
@@ -182,6 +183,11 @@
                 </div>
             </div>
             <div class="glassPanel project studentStats">
+                <div class="projectIcons">
+                    <img src="assets/projects/wms.svg" alt="wms" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
                 <img src="assets/projects/studentstats.webp" alt />
                 <section>
                     <h3>StudentStats</h3>
@@ -203,6 +209,10 @@
                 </div>
             </div>
             <div class="glassPanel project dredArt">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                </div>
                 <img src="assets/projects/dredart.png" alt />
                 <section>
                     <h3>DredArt</h3>
@@ -227,6 +237,10 @@
                 </div>
             </div>
             <div class="glassPanel project shrekDark">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                </div>
                 <img src="assets/projects/shrek.png" alt />
                 <section>
                     <h3>ShrekDark</h3>
@@ -250,6 +264,10 @@
                 </div>
             </div>
             <div class="glassPanel project gwt">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
                 <img src="assets/projects/gwt.png" alt />
                 <div>
                     <h3>GWT Count App</h3>
@@ -271,6 +289,10 @@
                 </div>
             </div>
             <div class="glassPanel project decrypto">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
                 <img src="assets/projects/decrypto.png" alt />
                 <div>
                     <h3>Decrypt Online</h3>
@@ -308,6 +330,7 @@
     <script src="https://unpkg.com/lenis@1.2.0/dist/lenis.min.js"></script>
     <script src="scripts/blobGenerator.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/scroll.js"></script>
     <script src="scripts/morph.js"></script>
 </body>
 
