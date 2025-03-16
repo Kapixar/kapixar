@@ -1,3 +1,9 @@
+/*
+    * Scroller Class
+    Uses the Lenis library for smooth scrolling.
+    * Detects native smooth scrolling and can disable Lenis if needed.
+
+*/
 const scrollContainer = document.querySelector('.paralaxContainer');
 
 class Scroller {

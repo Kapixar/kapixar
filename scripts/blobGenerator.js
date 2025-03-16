@@ -1,3 +1,7 @@
+/*
+    * Generates a blob shape using SVG path data.
+*/
+
 const getBlobSvg = ({ size = 400, growth = 6, edges = 6, seed = null, color="#932d18" } = {}) => {
     const { destPoints } = _createPoints(size, growth, edges, seed);
     const path = _createSvgPath(destPoints);

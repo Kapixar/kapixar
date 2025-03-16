@@ -1,4 +1,7 @@
-
+/*
+    * Utility function to create a blob svg element
+    * handing rotation of tech carousel
+*/
 
 window.addEventListener('load', () => {
 

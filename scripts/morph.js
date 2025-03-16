@@ -1,3 +1,8 @@
+/*
+    * Morphing Text Animation
+    * By: https://codepen.io/Valgo/pen/PowZaNY
+*/
+
 const elts = {
 	text1: document.getElementById("gooey1"),
 	text2: document.getElementById("gooey2")
