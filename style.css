@@ -765,7 +765,7 @@ button::after {
         height: 200%;
         width: 200%;
         backdrop-filter: blur(16px);
-        mask-image: url("/assets/svg/glassPanelMask.svg");
+        mask-image: url("/assets/svg/glassPanelMask.svg"), url("https://raw.githubusercontent.com/Kapixar/kapixar/refs/heads/main/assets/svg/glassPanelMask.svg");
         mask-repeat: no-repeat;
         mask-size: 100% 100%;
 
@@ -842,18 +842,6 @@ button::after {
     /* box-shadow: inset 0 0 10px 5px color-mix(in srgb, var(--accent) 10%, var(--project-theme)),
         0 0 10px 5px color-mix(in srgb, var(--accent) 10%, var(--project-theme)); */
     filter: drop-shadow(0 0 25px color-mix(in srgb, var(--accent) 10%, var(--project-theme)));
-
-    &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        height: 100%;
-        width: 100%;
-        backdrop-filter: blur(16px);
-        mask-image: url("/assets/svg/glassPanelMask.svg");
-        mask-repeat: no-repeat;
-        mask-size: 100% 100%;
-    }
 }
 
 .project h3 {
@@ -884,7 +872,8 @@ button::after {
     margin-left: .1em;
 
     background-color: var(--project-font);
-    mask: url("/assets/svg/external.svg") no-repeat;
+    mask-image: url("/assets/svg/external.svg"), url("https://raw.githubusercontent.com/Kapixar/kapixar/refs/heads/main/assets/svg/external.svg");
+    mask-repeat: no-repeat;
     mask-size: contain;
     transition: 0.3s;
 }
