@@ -180,6 +180,17 @@ footer .socials {
     margin: auto;
 }
 
+.blobContainer {
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    transform-style: preserve-3d;
+
+    --blobs-rescale: 1;
+}
+
 /* blobs */
 .floatingBlob {
     position: absolute;
@@ -190,25 +201,37 @@ footer .socials {
     mask-repeat: no-repeat;
     --blob-opacity: 0.9;
     --blob-scale: 1;
-    --blob-rotate: 0deg;
     --blob-translateZ: 0px;
-    --blob-inset: 0px;
+    --blob-top: 0px;
+    --blob-left: 0px;
     --blob-delay: 0s;
     --blob-speed: 10s;
     --blob-blur: 0px;
+    --blob-direction: 'normal';
     opacity: var(--blob-opacity);
-    transform: scale(var(--blob-scale)) rotate(var(--blob-rotate))
-        translateZ(var(--blob-translateZ));
-    inset: var(--blob-inset);
+    transform: scale(var(--blob-scale)) translateZ(var(--blob-translateZ));
+    
+    top: var(--blob-top);
+    left: var(--blob-left);
     /* filter: blur(var(--blob-blur)); */
 
-    scale: 0;
+    /* animation: pullUp var(--blob-speed) infinite var(--blob-delay)
+        cubic-bezier(0.175, 0.885, 0.32, 1); */
 
-    animation: pullUp var(--blob-speed) infinite var(--blob-delay)
-        cubic-bezier(0.175, 0.885, 0.32, 1);
+    animation: rotateBlob var(--blob-speed) infinite linear;
+    animation-direction: var(--blob-direction);
 }
 
-@keyframes pullUp {
+@keyframes rotateBlob {
+    0% {
+        rotate: 0;
+    }
+    100% {
+        rotate: 360deg;
+    }
+}
+
+/* @keyframes pullUp {
     0% {
         scale: 0;
         translate: 0 0;
@@ -233,7 +256,7 @@ footer .socials {
         --blob-blur: 50px;
         opacity: 0;
     }
-}
+} */
 
 .layer0 {
     --blob-opacity: 1;
@@ -302,12 +325,12 @@ footer .socials {
 
     @media (max-width: 50rem) {
         flex-direction: column;
-        text-align: justify;
+        text-align: center;
         gap: 0;
 
         &.aboutReversed {
             flex-direction: column;
-            text-align: justify;
+            text-align: center;
         }
 
         & .aboutText {
@@ -769,7 +792,7 @@ button::after {
     gap: 1rem;
     margin: .7rem;
     width: calc(100% - 1.4rem);
-    max-width: 100rem;
+    max-width: min(120rem, 90vw);
 }
 
 .project {
