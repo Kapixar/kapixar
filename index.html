@@ -1,73 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kapixar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL@-15..0,300..1000,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32">
+    <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 </head>
+
 <body>
-    <!-- <nav>
-        <button id="homeBtn" data-alt="Home">
-            <img src="home.svg">
-        </button>
-        <button id="mediaBtn" data-alt="Media">
-            <img src="media.svg">
-        </button>
-    </nav> -->
-    <div id="home">
-        <h1>
-            <span>K</span>
-            <span>a</span>
-            <span>p</span>
-            <span>i</span>
-            <span>x</span>
-            <span>a</span>
-            <span>r</span>
-            <img src="qr.png" alt="qrCode" tabindex=0>
-        </h1>
-        <p>Hi, I'm web developer.</p>
-    </div>
-    <div id="projects">
-        <div class="project">
-            <img src="projects/dredart.png" alt="">
-            <div>
-                <h3>DredArt</h3>
-                <p>Broswer extension for game <a href="https://drednot.io/">drednot.io</a>, allowing you to quickly and conveniently paint pixel art images in the game.</p>
-                <div class="projectLinks">
-                    <a target="_blank" href="https://chromewebstore.google.com/detail/dredart/ocgomfneelmigjgpgnapekmedbmimamm"><img src="link.svg" alt="url"></a>
-                    <a target="_blank" href="https://github.com/Kapixar/DredArt"><img src="github.svg" alt="url"></a>
-                </div>
+    <svg>
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="3" stitchTiles="stitch" />
+        </filter>
+    </svg>
+
+    <svg id="gooeyFilters">
+        <defs>
+            <filter id="gooeyThreshold">
+                <!-- Basically just a threshold effect - pixels with a high enough opacity are set to full opacity, and all other pixels are set to completely transparent. -->
+                <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      0 0 0 255 -140" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="paralaxContainer">
+        <div class="blobContainer"></div>
+
+        <div id="home" class="content">
+            <h1>
+                <span>K</span>
+                <span>a</span>
+                <span>p</span>
+                <span>i</span>
+                <span>x</span>
+                <span>a</span>
+                <span>r</span>
+            </h1>
+            <p>
+                Hi, I'm a
+                <span id="gooeyContainer">
+                    <span id="gooey1"></span>
+                    <span id="gooey2"></span>
+                </span>
+            </p>
+        </div>
+        <h1 class="paralaxHeader fontPop">About me</h1>
+
+        <div class="aboutContainer">
+            <div class="aboutEntry">
+                <p class="aboutText">
+                    Qualified IT Technician from Poland. Currently I study <span class="bold">Applied Informatics at
+                        WUST</span>
+                </p>
+                <img src="assets/about/uni.svg" alt="university logo" />
+            </div>
+            <div class="aboutEntry">
+                <p class="aboutText">
+                    Hit the road with IT in high school, starting with Arduino and web dev.<br>
+                    <span class="shadow">And Cisco routers.</span>
+                </p>
+                <img src="assets/about/ardunio.svg" alt="arduino logo" />
+            </div>
+            <div class="aboutEntry aboutReversed">
+                <p class="aboutText">
+                    Trying to make a world a better place by delivering <span class="bold">impactful solutions</span>.<br>
+                    <span class="shadow">I find LeetCode unappealing.</span>
+                </p>
+                <img src="assets/about/base.svg" alt="board games logo" />
+            </div>
+            <div class="aboutEntry">
+                <p class="aboutText">
+                    Pumped about modern board games, especially <span class="bold">heavy titles</span>.<br>
+                    <span class="shadow">Once you've started getting into the limited run stuff, it's hard to go
+                        back to
+                        only drinking the lager.</span>
+                </p>
+                <img src="assets/about/dices.svg" alt="board games logo" />
+            </div>
+            <div class="aboutEntry aboutReversed">
+                <p class="aboutText">
+                    Occasionally solves sudokus from Cracking The Cryptic.<br>
+                    <span class="shadow">Sometimes plays logic puzzle video games.</span>
+                </p>
+                <img src="assets/about/sudoku.svg" alt="board games logo" />
+            </div>
+            <div class="aboutEntry">
+                <p class="aboutText">
+                    Proud owner of lively <span class="bold">Jack Russell Terrier</span> at home.<br>
+                </p>
+                <img src="assets/about/jack.svg" alt="arduino logo" />
             </div>
         </div>
 
-        <div class="project">
-            <img src="projects/gwt.png" alt="">
-            <div>
-                <h3>GWT Count App</h3>
-                <p>A web app for live counting points in the board game <a href="https://boardgamegeek.com/boardgame/193738/great-western-trail">Great Western Trail</a>.</p>
+        <h1 class="paralaxHeader fontAppear">Technology</h1>
+        <div class="rotationContainer">
+            <ul class="rotator tech">
+                <li><i class="devicon-javascript-plain"></i></li>
+                <li><i class="devicon-framermotion-original"></i></li>
+                <li><i class="devicon-css3-plain"></i></li>
+                <li><i class="devicon-html5-plain"></i></li>
+                <li><i class="devicon-react-original"></i></li>
+                <li><i class="devicon-nodejs-plain-wordmark"></i></li>
+                <li><i class="devicon-python-plain"></i></li>
+                <li><i class="devicon-typescript-plain"></i></li>
+                <li><i class="devicon-ocaml-plain"></i></li>
+                <li><i class="devicon-scala-plain"></i></li>
+                <li><i class="devicon-php-plain"></i></li>
+                <li><i class="devicon-cplusplus-plain"></i></li>
+                <li><i class="devicon-java-plain"></i></li>
+                <li><i class="devicon-arduino-plain"></i></li>
+                <li><i class="devicon-mysql-plain-wordmark"></i></li>
+                <li><i class="devicon-godot-plain"></i></li>
+            </ul>
+        </div>
+        <div class="rotationContainer">
+            <ul class="rotator soft">
+                <li><i class="devicon-gimp-plain"></i></li>
+                <li><i class="devicon-inkscape-plain"></i></li>
+                <li><i class="devicon-figma-plain"></i></li>
+                <li><i class="devicon-visualstudio-plain"></i></li>
+                <li><i class="devicon-jetbrains-plain"></i></li>
+                <li><i class="devicon-slack-plain"></i></li>
+                <li><i class="devicon-git-plain"></i></li>
+                <li><i class="devicon-github-original"></i></li>
+                <li><i class="devicon-wordpress-plain"></i></li>
+                <li><i class="devicon-windows11-original"></i></li>
+                <li><i class="devicon-linux-plain"></i></li>
+                <li><i class="devicon-postman-plain"></i></li>
+                <li><i class="devicon-npm-original-wordmark"></i></li>
+                <li><i class="devicon-notion-plain"></i></li>
+            </ul>
+        </div>
+        <div class="rotationContainer">
+            <ul class="rotator goal">
+                <li><i class="devicon-haskell-plain"></i></li>
+                <li><i class="devicon-go-original-wordmark"></i></li>
+                <li><i class="devicon-rust-plain"></i></li>
+                <li><i class="devicon-docker-plain"></i></li>
+                <li><i class="devicon-androidstudio-plain"></i></li>
+                <li><i class="devicon-blender-original"></i></li>
+                <li><i class="devicon-svelte-plain"></i></li>
+                <li><i class="devicon-vuejs-plain"></i></li>
+            </ul>
+        </div>
+        <h1 class="paralaxHeader rotateBack">Projects</h1>
+        <div id="projects">
+            <div class="glassPanel project polwrater">
+                <div class="projectIcons">
+                    <img src="assets/projects/wms.svg" alt="wms" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
+                <img src="assets/projects/polwrater.webp" alt />
+                <section>
+                    <h3>Polwrater</h3>
+                    <p>
+                        An app to easily write lecturer's reviews for obnoxious, socially accepted WUST review
+                        forum.
+                    </p>
+                </section>
                 <div class="projectLinks">
-                    <a target="_blank" href="http://gwt.mygamesonline.org/"><img src="link.svg" alt="url"></a>
-                    <!-- <a target="_blank" href="https://github.com/Kapixar/DredArt"><img src="github.svg" alt="url"></a> -->
+                    <a target="_blank"
+                        href="https://chromewebstore.google.com/detail/dredart/ocgomfneelmigjgpgnapekmedbmimamm"><svg
+                            width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector"
+                                d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                    <!-- <a target="_blank" href="https://github.com/WMS-DEV/"><i
+                            class="devicon-github-original"></i></a> -->
+                </div>
+            </div>
+            <div class="glassPanel project studentStats">
+                <div class="projectIcons">
+                    <img src="assets/projects/wms.svg" alt="wms" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
+                <img src="assets/projects/studentstats.webp" alt />
+                <section>
+                    <h3>StudentStats</h3>
+                    <p>
+                        Nationwide application to easly check your grades and statistics at the <a target="_blank" href="https://www.usos.edu.pl/about-usos">Polish USOS</a> system.
+                    </p>
+                </section>
+                <div class="projectLinks">
+                    <a target="_blank"
+                        href="https://chromewebstore.google.com/detail/dredart/ocgomfneelmigjgpgnapekmedbmimamm"><svg
+                            width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector"
+                                d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                    <a target="_blank" href="https://github.com/WMS-DEV/studentStats"><i
+                            class="devicon-github-original"></i></a>
+                </div>
+            </div>
+            <div class="glassPanel project dredArt">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                </div>
+                <img src="assets/projects/dredart.png" alt />
+                <section>
+                    <h3>DredArt</h3>
+                    <p>
+                        Broswer extension for game
+                        <a target="_blank" href="https://drednot.io/">drednot.io</a>,
+                        allowing you to quickly and conveniently paint pixel
+                        art images in the game.
+                    </p>
+                </section>
+                <div class="projectLinks">
+                    <a target="_blank"
+                        href="https://chromewebstore.google.com/detail/dredart/ocgomfneelmigjgpgnapekmedbmimamm"><svg
+                            width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector"
+                                d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                    <a target="_blank" href="https://github.com/Kapixar/DredArt"><i
+                            class="devicon-github-original"></i></a>
+                </div>
+            </div>
+            <div class="glassPanel project shrekDark">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/en.svg" alt="gb flag" />
+                </div>
+                <img src="assets/projects/shrek.png" alt />
+                <section>
+                    <h3>ShrekDark</h3>
+                    <p>
+                        Another extension for game
+                        <a target="_blank" href="https://drednot.io/">drednot.io</a>,
+                        improving it's interface and adding new QoL features.
+                    </p>
+                </section>
+                <div class="projectLinks">
+                    <a target="_blank"
+                        href="https://chromewebstore.google.com/detail/dredart/ocgomfneelmigjgpgnapekmedbmimamm"><svg
+                            width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector"
+                                d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                    <a target="_blank" href="https://github.com/Kapixar/ShrekDark"><i
+                            class="devicon-github-original"></i></a>
+                </div>
+            </div>
+            <div class="glassPanel project gwt">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
+                <img src="assets/projects/gwt.png" alt />
+                <div>
+                    <h3>GWT Point Counter</h3>
+                    <section>
+                        <p>
+                            A web app for live counting points in the amazing
+                            <a target="_blank" href="https://boardgamegeek.com/boardgame/193738/great-western-trail">Great Western
+                                Trail</a>board game
+                        </p>
+                    </section>
+                </div>
+                <div class="projectLinks">
+                    <a target="_blank" href="http://gwt.mygamesonline.org/"><svg width="800px" height="800px"
+                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="Vector"
+                                d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                </div>
+            </div>
+            <div class="glassPanel project decrypto">
+                <div class="projectIcons">
+                    <img src="assets/projects/kapixar.svg" alt="dev icon" />
+                    <img src="assets/projects/pl.svg" alt="pl flag" />
+                </div>
+                <img src="assets/projects/decrypto.png" alt />
+                <div>
+                    <h3>Decrypt Online</h3>
+                    <p>
+                        Stylized browser simulation of party board game
+                        <a href="https://boardgamegeek.com/boardgame/225694/decrypto">Decrypto</a>
+                    </p>
+                    <div class="projectLinks">
+                        <a target="_blank" href="https://kapixar.github.io/DecryptOnline/"><svg width="800px"
+                                height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path id="Vector"
+                                    d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg></a>
+                        <a target="_blank" href="https://github.com/Kapixar/DecryptOnline">
+                            <i class="devicon-github-original"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="project">
-            <img src="projects/decrypto1.png" alt="">
-            <div>
-                <h3>Decrypt Online</h3>
-                <p>Browser simulation of party board game <a href="https://boardgamegeek.com/boardgame/225694/decrypto">Decrypto</a></p>
-                <div class="projectLinks">
-                    <a target="_blank" href="https://kapixar.github.io/DecryptOnline/"><img src="link.svg" alt="url"></a>
-                    <a target="_blank" href="https://github.com/Kapixar/DecryptOnline"><img src="github.svg" alt="url"></a>
-                </div>
+        <footer class="glassPanel">
+            <h3>Thank you for stopping by!</h3>
+            <p>Get in touch</p>
+            <div class="socials">
+                <a href="mailto:kapixar03@gmail.com"><img src="assets/socials/mail.svg" alt="mail" /></a>
+                <a target="_blank" href="https://github.com/Kapixar"><img src="assets/socials/github.svg"
+                        alt="github" /></a>
+                <a target="_blank" href="https://discord.gg/wM2B5k5S6M"><img src="assets/socials/discord.svg"
+                        alt="discord" /></a>
+                <a target="_blank" href="https://boardgamegeek.com/user/kapixar"><img src="assets/socials/bgg.svg"
+                    alt="bgg" /></a>
             </div>
-        </div>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/lenis@1.2.0/dist/lenis.min.js"></script>
+    <script src="scripts/blobGenerator.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/scroll.js"></script>
+    <script src="scripts/morph.js"></script>
 </body>
+
 </html>
