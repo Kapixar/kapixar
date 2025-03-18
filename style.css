@@ -613,7 +613,7 @@ button::after {
         animation-duration: 1ms;
         animation-direction: alternate;
         animation-timeline: view();
-        animation-range: -50vh 170vh;
+        animation-range: -90vh 220vh;
     }
 }
 
@@ -621,17 +621,17 @@ button::after {
     0% {
         scale: 0.6;
         opacity: 0.6;
-        translate: -150%;
+        translate: -50%;
     }
     50% {
         scale: 1;
         opacity: 1;
-        translate: 10%;
+        translate: -10%;
     }
     100% {
         opacity: 0;
         scale: 0.6;
-        translate: 150%;
+        translate: 50%;
     }
 }
 
@@ -697,7 +697,7 @@ button::after {
 }
 
 .rotationContainer::before {
-    content: "Tech Stack";
+    content: "Proficient";
     position: absolute;
     text-align: center;
     top: 0%;
@@ -709,12 +709,16 @@ button::after {
     transform: translateY(25px) translateY(-200%);
 }
 
+.rotationContainer:has(.secondary)::before {
+    content: "Secondary";
+}
+
 .rotationContainer:has(.soft)::before {
     content: "Software";
 }
 
 .rotationContainer:has(.goal)::before {
-    content: "Learning";
+    content: "In Progress";
 }
 
 
@@ -891,7 +895,7 @@ button::after {
 .projectLinks {
     display: flex;
     width: 100%;
-    max-height: 4rem;
+    max-height: 2rem;
     flex-wrap: nowrap;
 }
 
@@ -930,7 +934,13 @@ button::after {
 }
 
 
+.important {
+    grid-column: span 2;
 
+    @media (max-width: 336px) {
+        grid-column: span 1;
+    }
+}
 
 .polwrater {
     --project-theme: #1c50839f;

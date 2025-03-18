@@ -73,11 +73,12 @@ window.addEventListener('load', () => {
 
     // function scaling vertical position of the blobs to the height of the website
     function scaleBlobContainer() {
+        blobContainer.style.setProperty('scale', 1);
+
         const blobsHeight = highestBlob;
-        
-        const siteHeight = paralaxContainer.scrollHeight + 400;
+        const siteHeight = paralaxContainer.scrollHeight;
+
         const scaleToApply = siteHeight / blobsHeight;
-        console.log(`scaleToApply: ${siteHeight} / ${blobsHeight} = ${scaleToApply}`);
         blobContainer.style.setProperty('scale', scaleToApply);
 
         // fixing the left position of the blobs
@@ -102,6 +103,9 @@ window.addEventListener('load', () => {
     // placing the icons in the carousel
     const techs = document.querySelectorAll('.tech li');
     setUpRotator(techs);
+
+    const secondary = document.querySelectorAll('.secondary li');
+    setUpRotator(secondary);
 
     const softs = document.querySelectorAll('.soft li');
     setUpRotator(softs);
